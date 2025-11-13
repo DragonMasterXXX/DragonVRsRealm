@@ -104,6 +104,7 @@
       width: 100%;
       max-width: 1100px;
       position: relative;
+      flex-wrap: wrap;
     }
 
     /* Profile container positioning */
@@ -170,7 +171,7 @@
     }
 
     /* Title styling to center */
-    .header-title {
+    .header-title-container {
       flex-grow: 1;
       text-align: center;
       color: #ff4a00;
@@ -185,9 +186,77 @@
         0 0 20px #ff3e00,
         0 0 40px #ff1a00,
         0 0 60px #ff1a00;
-      
       pointer-events: none;
       white-space: nowrap;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      flex-wrap: nowrap;
+    }
+
+    /* Green flashy circle next to counter */
+    .visitor-counter {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #0f0;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: none;
+      margin-top: 0.2rem;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 6px #0f0, 0 0 12px #0f0;
+    }
+    .visitor-counter .green-circle {
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(135deg, #00ff00, #00cc00);
+      border-radius: 50%;
+      box-shadow:
+        0 0 5px 2px #00ff00,
+        0 0 8px 4px #00cc00;
+      animation: flickerGreen 2s infinite alternate;
+    }
+    @keyframes flickerGreen {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #00ff00); }
+      50% { opacity: 0.7; filter: drop-shadow(0 0 20px #00cc00); }
+    }
+
+    /* Navigation buttons container */
+    .header-buttons {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-shrink: 0;
+      flex-wrap: nowrap;
+      pointer-events: auto;
+    }
+    .header-buttons a {
+      background: #ff4500;
+      color: #fff1e0;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      box-shadow: 0 0 8px #ff4500, 0 0 15px #ff4500;
+      text-decoration: none;
+      user-select: none;
+      text-transform: uppercase;
+      font-size: 1rem;
+      transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .header-buttons a:hover,
+    .header-buttons a:focus {
+      background: #ff6a00;
+      box-shadow: 0 0 12px #ff6a00, 0 0 25px #ff8700;
+      color: #fff;
+      outline: none;
     }
 
     main {
@@ -370,6 +439,11 @@
         width: 100px;
         height: 100px;
       }
+      .header-title-container {
+        font-size: 4rem !important;
+        white-space: normal;
+        gap: 0.5rem;
+      }
     }
     @media (max-width: 600px) {
       header {
@@ -387,6 +461,11 @@
       h1 {
         font-size: 2.2rem;
       }
+      .header-title-container {
+        font-size: 3rem !important;
+        white-space: normal;
+        gap: 0.4rem;
+      }
     }
   </style>
 </head>
@@ -400,21 +479,35 @@
         />
         <div class="fire-explosion" aria-hidden="true"></div>
       </div>
-      <div class="header-title" aria-label="DragonVR's Realm title">DragonVR's Realm</div>
+
+      <div style="display:flex; flex-direction: column; align-items:center; flex-grow:1; gap:0.5rem; min-width: 240px;">
+        <div class="header-title-container" aria-label="DragonVR's Realm title">
+          DragonVR's Realm
+          <span class="visitor-counter" aria-live="polite" aria-atomic="true" id="visitorCounter" title="Current visitor count">
+            <span class="green-circle" aria-hidden="true"></span>
+            <span id="visitorCountNumber">0 Visitors</span>
+          </span>
+        </div>
+
+        <nav class="header-buttons" aria-label="Primary website navigation">
+          <a href="whats-new.html" role="button" tabindex="0" aria-label="Navigate to What's New page">What's New?</a>
+          <a href="chat.html" role="button" tabindex="0" aria-label="Navigate to Chat page">Chat</a>
+        </nav>
+      </div>
     </div>
   </header>
 
   <main>
     <h1>🔥 Get Your DragonVR Firey Merch 🔥</h1>
     <section class="products" aria-label="Merchandise Products">
-      <!-- Product cards here unchanged -->
+      <!-- Product cards unchanged -->
       <article class="product-card" tabindex="0" aria-label="OfficialDragon1 T-Shirt for $24.99">
         <img src="https://mockup-api.teespring.com/v3/image/rYMqqGUdF_FwZUmy_Z590VTOFs4/800/800.jpg" alt="DragonVR T-Shirt" class="product-image" />
         <div class="product-info">
           <h2 class="product-title">Dragon Flame T-Shirt</h2>
           <p class="product-description">If you have nothing else, then wear this, duh.. Stay Fired Up!</p>
           <p class="product-price">$24.99</p>
-          <a href="https://teespring.com/dragon-flame-t-shirt" class="buy-btn" aria-label="Buy Dragon Flame T-Shirt for $24.99">Buy Now</a>
+          <a href="https://teespring.com/dragon-flame-t-shirt" class="buy-btn" aria-label="Buy Dragon Flame T-Shirt for $24.99" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </article>
 
@@ -424,17 +517,17 @@
           <h2 class="product-title">Inferno Hoodie</h2>
           <p class="product-description">Cozy heavy blend hoodie with a brushed interior. Features a double-lined hood, pouch pocket, 1x1 rib with spandex for stretch, seamless body, and eco-friendly tear-away label. Hoodie runs small; size up for best fit.</p>
           <p class="product-price">$39.99</p>
-          <a href="https://teespring.com/get-inferno-hoodie" class="buy-btn" aria-label="Buy Inferno Hoodie for $39.99">Buy Now</a>
+          <a href="https://teespring.com/get-inferno-hoodie" class="buy-btn" aria-label="Buy Inferno Hoodie for $39.99" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </article>
 
-      <article class="product-card" tabindex="0" aria-label="DragonVR Cap for $19.99">
+      <article class="product-card" tabindex="0" aria-label="DragonVR Mug for $19.99">
         <img src="https://mockup-api.teespring.com/v3/image/15tKrOlqYE3olBN-kaz-GFMYUDs/800/800.jpg" alt="DragonVR Mug" class="product-image" />
         <div class="product-info">
           <h2 class="product-title">Blazin' Mug</h2>
           <p class="product-description">Nothing special...</p>
           <p class="product-price">$19.99</p>
-          <a href="https://teespring.com/blazin-mug" class="buy-btn" aria-label="Buy Blazin' Mug for $19.99">Buy Now</a>
+          <a href="https://teespring.com/blazin-mug" class="buy-btn" aria-label="Buy Blazin' Mug for $19.99" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </article>
     </section>
@@ -442,25 +535,33 @@
 
   <footer>
     © 2025 DragonVR. All rights reserved. <br />
-    Follow on YouTube: 
+    Follow on YouTube:
     <a href="https://www.youtube.com/@OfficialDragon1" target="_blank" rel="noopener noreferrer" aria-label="OfficialDragon1 YouTube channel link">
       @OfficialDragon1
     </a>
   </footer>
 
   <script>
+    // Visitor Count - using LocalStorage to simulate visitor count for demo
+    // In real use, replace this with a backend counter API
+    function updateVisitorCounter() {
+      const visitsKey = 'dragonvr_visitor_count';
+      let visits = localStorage.getItem(visitsKey);
+      if (!visits) visits = 0;
+      visits = parseInt(visits, 10) + 1;
+      localStorage.setItem(visitsKey, visits);
+      const counterText = `${visits} Visitors/Dragon Member${visits !== 1 ? 's' : ''}`;
+      document.getElementById('visitorCountNumber').textContent = counterText;
+    }
+    window.addEventListener('load', updateVisitorCounter);
+
     const profileImg = document.querySelector('.profile-container img');
     const fireExplosion = document.querySelector('.fire-explosion');
 
     window.addEventListener('load', () => {
       setTimeout(() => {
-        // Show explosion effect - triggers animation
         fireExplosion.classList.add('active');
-
-        // Show profile image with explode animation
         profileImg.classList.add('visible');
-
-        // Hide explosion after animation finishes
         fireExplosion.addEventListener('animationend', () => {
           fireExplosion.classList.remove('active');
           fireExplosion.style.opacity = '0';
